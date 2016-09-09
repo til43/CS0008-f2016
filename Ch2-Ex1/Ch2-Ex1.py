@@ -18,3 +18,4 @@ print "Name:", name
 print "Address:", address
 print "Telephone:", telephone
 print "Major:", major
+
