@@ -1,0 +1,11 @@
+# name: Tiantian Liu
+# email: til43@pitt.edu
+# date: Sept. 12. 2016
+# class: CS0008-f2016
+# instructor: Max Novelli (man8@pitt.edu)
+# Description:
+# Chapter2, Exercise 9
+
+F = input("the temperature in farenheit:")
+C = 5 * (F-32)/9
+print "the temperature in celsius is: ", C
