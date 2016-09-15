@@ -7,27 +7,23 @@
 #Chapter 3, Exercise 9
 
 a = int(input("input a number from 0~36:"))
-if a == 0:
-    print "green"
-elif a >= 1 and a <= 10:
+if a < 0 or a > 36:
+    print "Please give me a number within the range :)"
+elif a == 0:
+    color = "Green"
+elif a >= 1 and a <= 10 \
+        or \
+                        a >= 19 and a <= 28:
     if a % 2 == 0:
-        print "black"
+        color = "black"
     else:
-        print "red"
-elif a >= 11 and a <= 18:
+        color = "red"
+else :
     if a % 2 == 0:
-        print "red"
+        color = "red"
     else:
-        print "black"
-elif a >= 19 and a <= 28:
-    if a % 2 == 0:
-        print "black"
-    else:
-        print "red"
-elif a >= 29 and a <= 36:
-    if a % 2 == 0:
-        print "red"
-    else:
-        print "black"
-else:
-    print "wrong"
+        color = "black"
+print color
+
+
+
