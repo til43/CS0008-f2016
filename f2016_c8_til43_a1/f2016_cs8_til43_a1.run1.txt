@@ -27,17 +27,17 @@ if a == 2:
     gasM = input("How many liters of gasoline was used: ")
 
 #convert Metric to USC
-    distance = disM * 1.60934
+    distance = disM * 1.60934       (PEP 8:   missing whitespace around operator)
     gas = gasM * 3.78541
 
 #calculate the fuel consumption
     fuelcomM = 100 * gasM / disM
     fuelcomU = distance / gas
 
-#provide rating for the users
+#provide rating for the users       (PEP 8: block comments should start with ‘# ”) 
     if fuelcomM > 20:
         rate = "Extremely poor"
-    elif fuelcomM > 15 and fuelcomM <= 20:
+    elif fuelcomM > 15 and fuelcomM <= 20:          (Simplify chained comparison)
         rate = "Poor"
     elif fuelcomM > 10 and fuelcomM <= 15:
         rate = "Average"
@@ -47,12 +47,12 @@ if a == 2:
         rate = "Excellent"
 
 #format the numbers
-distance_ = format(distance, '.3f')
-disM_ = format(disM, '.3f')
-gas_ = format(gas, '.3f')
-gasM_ = format(gasM, '.3f')
-fuelcomU_ = format(fuelcomU, '.3f')
-fuelcomM_ = format(fuelcomM, '.3f')
+distance_ = format(distance, '.3f')         (Name ‘distance’ can be not defined)
+disM_ = format(disM, '.3f')                    (Name ‘disM’ can be not defined) 
+gas_ = format(gas, '.3f')                       (Name ‘gas’ can be not defined) 
+gasM_ = format(gasM, '.3f')                     (Name ‘gasM’ can be not defined) 
+fuelcomU_ = format(fuelcomU, '.3f')             (Name ‘fuelcomU’ can be not defined)
+fuelcomM_ = format(fuelcomM, '.3f')              (Name ‘fuelcomM’ can be not defined)  
 
 #print the result
 print("                            USC                       Metric")
