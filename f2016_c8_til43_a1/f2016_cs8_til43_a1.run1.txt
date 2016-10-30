@@ -1,0 +1,72 @@
+# name: Tiantian Liu
+# email: til43@pitt.edu
+# date: Sept. 30. 2016
+#class: CS0008-f2016
+#instructor: Max Novelli (man8@pitt.edu)
+
+#Description: assignment 1: A client wish to have a software to provide a better understand
+#of gas mileage for her car dealer business. Given that she has a lot of international clients,
+#she wishes to hace a software that provides results in USC (US Customary Units) and Metric System.
+
+#ask users for the system they use
+a = input("If you are using USC, type '1'; If metric, type '2': ")
+
+#ask users for distance and gas input in USC unit, if the user chose USC
+if a == 1:
+    distance = float(input("How many miles have you driven: "))
+    gas = float(input("How many gallons of gasoline was used: "))
+
+    #convert USC to Metric system
+    disM = distance * 0.621371
+    gasM = gas * 3.78541
+
+
+#ask users for distance and gas input in Metric unit, if Metric is chose
+if a == 2:
+    disM = input("How many kilometers have you driven: ")
+    gasM = input("How many liters of gasoline was used: ")
+
+#convert Metric to USC
+    distance = disM * 1.60934       (PEP 8:   missing whitespace around operator)
+    gas = gasM * 3.78541
+
+#calculate the fuel consumption
+    fuelcomM = 100 * gasM / disM
+    fuelcomU = distance / gas
+
+#provide rating for the users       (PEP 8: block comments should start with ‘# ”) 
+    if fuelcomM > 20:
+        rate = "Extremely poor"
+    elif fuelcomM > 15 and fuelcomM <= 20:          (Simplify chained comparison)
+        rate = "Poor"
+    elif fuelcomM > 10 and fuelcomM <= 15:
+        rate = "Average"
+    elif fuelcomM > 8 and fuelcomM <= 10:
+        rate = "Good"
+    else:
+        rate = "Excellent"
+
+#format the numbers
+distance_ = format(distance, '.3f')         (Name ‘distance’ can be not defined)
+disM_ = format(disM, '.3f')                    (Name ‘disM’ can be not defined) 
+gas_ = format(gas, '.3f')                       (Name ‘gas’ can be not defined) 
+gasM_ = format(gasM, '.3f')                     (Name ‘gasM’ can be not defined) 
+fuelcomU_ = format(fuelcomU, '.3f')             (Name ‘fuelcomU’ can be not defined)
+fuelcomM_ = format(fuelcomM, '.3f')              (Name ‘fuelcomM’ can be not defined)  
+
+#print the result
+print("                            USC                       Metric")
+print("Distance___________:" + distance_ + " miles"+"       "+ disM_ +"miles")
+print("Gas________________:" + gas_ + " miles"+"       "+ gasM_ +"miles")
+print("Consumption________:" + fuelcomU_ + " miles"+"       "+ fuelcomM_ +"miles")
+print("Gas Consumption Rating: " + rate )
+
+If you are using USC, type '1'; If metric, type '2': 2
+How many kilometers have you driven: 34
+How many liters of gasoline was used: 1
+                            USC                     Metric
+Distance___________:     54.718 miles            34.000miles
+Gas________________:     3.785 miles          1.000miles
+Consumption________:     14.455 miles            2.000miles
+Gas Consumption Rating: Excellent
+ 
