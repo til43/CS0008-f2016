@@ -9,10 +9,10 @@
 #she wishes to hace a software that provides results in USC (US Customary Units) and Metric System.
 
 #ask users for the system they use
-a = input("If you are using USC, type 'USC'; If metric, type 'Metric': ")
+a = input("If you are using USC, type '1'; If metric, type '2': ")
 
 #ask users for distance and gas input in USC unit, if the user chose USC
-if a == "USC":
+if a == 1:
     distance = float(input("How many miles have you driven: "))
     gas = float(input("How many gallons of gasoline was used: "))
 
@@ -37,19 +37,19 @@ if a == "USC":
         rate = "Excellent"
 
 #ask users for distance and gas input in Metric unit, if Metric is chose
-if a == "Metric":
-    disM = float(input("How many kilometers have you driven: "))
-    gasM = float(input("How many liters of gasoline was used: "))
+if a == 2:
+    disM = input("How many kilometers have you driven: ")
+    gasM = input("How many liters of gasoline was used: ")
 
-    #convert Metric to USC
+#convert Metric to USC
     distance = disM * 1.60934
     gas = gasM * 3.78541
 
-    #calculate the fuel consumption
+#calculate the fuel consumption
     fuelcomM = 100 * gasM / disM
     fuelcomU = distance / gas
 
-    # provide rating for the users
+#provide rating for the users
     if fuelcomM > 20:
         rate = "Extremely poor"
     elif fuelcomM > 15 and fuelcomM <= 20:
@@ -61,5 +61,17 @@ if a == "Metric":
     else:
         rate = "Excellent"
 
-print "                             USC                         Metric"
-print "distance                    ", distance, "miles","       ", disM,"Km"
+#format the numbers
+distance_ = format(distance, '.3f')
+disM_ = format(disM, '.3f')
+gas_ = format(gas, '.3f')
+gasM_ = format(gasM, '.3f')
+fuelcomU_ = format(fuelcomU, '.3f')
+fuelcomM_ = format(fuelcomM, '.3f')
+
+#print the result
+print("                            USC                       Metric")
+print("Distance___________:" + distance_ + " miles"+"       "+ disM_ +"miles")
+print("Gas________________:" + gas_ + " miles"+"       "+ gasM_ +"miles")
+print("Consumption________:" + fuelcomU_ + " miles"+"       "+ fuelcomM_ +"miles")
+print("Gas Consumption Rating: " + rate )
