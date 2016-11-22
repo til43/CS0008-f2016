@@ -1,0 +1,141 @@
+#
+#
+# name       : Tiantian Liu
+# email      : man8@pitt.edu
+# date       : 2016/11/07
+# class      : CS0008-f2016
+# instructor : Max Novelli (man8@pitt.edu)
+#
+# Description: It's a program that read the master input list file, retrieves the names of the
+#              data files, extract name and distance. Then compute the following quantities and informations:
+#              1. number of files read in input
+#              2. total number of lines read
+#              3. total distance run (the sum of all the distances loaded from provided files )
+#              4. total distance run for each individual participant
+#              5. individual maximum distance run and by which participant
+#              6. individual minimum distance run and by which participant
+#              7. report if there are any participants that appears more than once
+#              8. total number of participants
+
+# initiate the values
+data =[]
+total_line_read = 0
+num_file_read =0
+total_distance_run = 0
+output_file = {}
+num_multi_participant = 0
+
+def printKV(key,value,klen = 0):
+    # check which is the length to be used when printing the key
+    # max of klen and the length of key
+    klen = max(klen,len(key));
+    # check which is type of value and choose the proper formatting
+    if isinstance(value,str):
+        # we have a string
+        fvalue = '29s'
+    elif isinstance(value,float):
+        # we have a float
+        fvalue = '10.5f'
+    elif isinstance(value,int):
+        # we have a integer
+        fvalue = '10d'
+    else:
+        # we do not know what we have,
+        # so we try our best to convert it to a string and
+        # format it as a string
+        value = str(value)
+        fvalue = '20s'
+
+    # print key and value with correct formatting
+    print(format(key,'>'+str(klen)+'s'),' : ',format(value,fvalue))
+
+# read through the sourcefile
+filesource = 'f2016_cs8_a3.data.txt'
+file = open(filesource, 'r')
+
+# loop and open each file
+for line in file:
+    # calculate the number of files to be read
+    num_file_read += 1
+    # get rid of the \n
+    source = line.rstrip('\n')
+    # open the data files
+    fh = open(source, 'r')
+    # loop through the data files
+    for line in fh:
+        if(line.split(',')[0] != 'name'):
+            # calculate the total lines to be read
+            total_line_read += 1
+            # get the distance in the list
+            distance = float(line.split(',')[1])
+            # calculate the total distance run
+            total_distance_run += distance
+
+        if(line.split(',')[1] != 'distance\n'):
+            data.append(float(line.split(',')[1]))
+            max_distance = max(data)
+            min_distance = min(data)
+ 	if line.split(',')[0] in output_file:
+                if output_file[line.split(',')[0]][0] == 0:
+                    num_multi_participant += 1
+                output_file[line.split(',')[0]][0] += 1
+                output_file[line.split(',')[0]][1] += float(line.split(',')[1])
+                line.split(',')[1] = output_file[line.split(',')[0]][1]
+
+            output_file[line.split(',')[0]] = [0, float(line.split(',')[1])]
+
+
+
+fh.close()
+
+output_FILE = open('f2016_cs8_til43_a3.data.output.csv', 'w')
+for item, value in output_file.items():
+    output_FILE.write(str(item),',',str(value[0]),',',str(value[1],'\n'))
+output_FILE.close()
+
+           
+
+printKV('Number of input files read', num_file_read,30)
+printKV('total number of lines read', total_line_read,30)
+printKV('Total distance run', total_distance_run, 30)
+printKV('Max distance run', max_distance,30)
+printKV('   by participant', "I don't know",30)
+printKV('Min distance run', min_distance,30)
+printKV('   by participant',"I don't know",30)
+print (" ")
+printKV("Total number of participants", )
+printKV('number of participant with multiple records', num_multi_participant,30)
+
+
+
+
+/Library/Frameworks/Python.framework/Versions/3.5/bin/python3.5 /Users/liutiantian/Documents/CS0008/CS0008-f2016/f2016_cs8_til43_a3/f2016_cs8_til43_a3.py
+    Number of input files read  :           3
+Traceback (most recent call last):
+    total number of lines read  :         450
+  File "/Users/liutiantian/Documents/CS0008/CS0008-f2016/f2016_cs8_til43_a3/f2016_cs8_til43_a3.py", line 89, in <module>
+    printKV("Total number of participants" )
+            Total distance run  :  23222.95595
+TypeError: printKV() missing 1 required positional argument: 'value'
+              Max distance run  :    99.91761
+                by participant  :  I don't know                 
+              Min distance run  :     0.05789
+                by participant  :  I don't know                 
+ 
+
+Process finished with exit code 1
+
+Traceback (most recent call last):
+  File "/Users/liutiantian/Documents/CS0008/CS0008-f2016/f2016_cs8_til43_a3/f2016_cs8_til43_a3.py", line 85, in <module>
+    output_file[line.split(',')[0]] = [0, float(line.split(',')[1])]
+ValueError: could not convert string to float: 'distance\n'
+
+
+
+
+
+
+
+
+
+
