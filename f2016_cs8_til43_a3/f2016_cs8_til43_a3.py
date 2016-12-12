@@ -16,6 +16,9 @@
 #              6. individual minimum distance run and by which participant
 #              7. report if there are any participants that appears more than once
 #              8. total number of participants
+#
+# Notes:
+# MN: experiemnt more with the code and pay attention to syntax
 
 # initiate the values
 data =[]
@@ -50,6 +53,7 @@ def printKV(key,value,klen = 0):
     print(format(key,'>'+str(klen)+'s'),' : ',format(value,fvalue))
 
 # read through the sourcefile
+# MN: why not asking the user for the master list file name?
 filesource = 'f2016_cs8_a3.data.txt'
 file = open(filesource, 'r')
 
@@ -63,34 +67,73 @@ for line in file:
     fh = open(source, 'r')
     # loop through the data files
     for line in fh:
-        if(line.split(',')[0] != 'name'):
-            # calculate the total lines to be read
-            total_line_read += 1
-            # get the distance in the list
-            distance = float(line.split(',')[1])
-            # calculate the total distance run
-            total_distance_run += distance
+        # MN: why do you test on name and distance
+        #     if you find one or the other, you know that is a header
+        #     so you should skip it
+        #if(line.split(',')[0] != 'name'):
+        #    # calculate the total lines to be read
+        #    total_line_read += 1
+        #    # get the distance in the list
+        #    distance = float(line.split(',')[1])
+        #    # calculate the total distance run
+        #    total_distance_run += distance
+        #
+        #if(line.split(',')[1] != 'distance\n'):
+        #    data.append(float(line.split(',')[1]))
+        #    max_distance = max(data)
+        #    min_distance = min(data)
+        #    if line.split(',')[0] in output_file:
+        #        if output_file[line.split(',')[0]][0] == 0:
+        #            num_multi_participant += 1
+        #        output_file[line.split(',')[0]][0] += 1
+        #        output_file[line.split(',')[0]][1] += float(line.split(',')[1])
+        #        line.split(',')[1] = output_file[line.split(',')[0]][1]
+        #
+        # MN: this statement gets executed on every line, including the headers, therefore you get an error
+        #     that item at index 1 cannot be converted to a float
+        #output_file[line.split(',')[0]] = [0, float(line.split(',')[1])]
 
-        if(line.split(',')[1] != 'distance\n'):
-            data.append(float(line.split(',')[1]))
-            max_distance = max(data)
-            min_distance = min(data)
-            if line.split(',')[0] in output_file:
-                if output_file[line.split(',')[0]][0] == 0:
-                    num_multi_participant += 1
-                output_file[line.split(',')[0]][0] += 1
-                output_file[line.split(',')[0]][1] += float(line.split(',')[1])
-                line.split(',')[1] = output_file[line.split(',')[0]][1]
+        # MN: first you need to test if it is a header
+        if 'name' in line:
+            # MN: this is a header,s kip
+            continue
 
-        output_file[line.split(',')[0]] = [0, float(line.split(',')[1])]
+        # MN: now we need to split the string and clean it
+        temp = line.strip('\n').split(',')
 
+        # calculate the total lines to be read
+        total_line_read += 1
+        # get the distance in the list
+        distance = float(temp[1])
+        # calculate the total distance run
+        total_distance_run += distance
 
+        # MN: populate list of distances and compute min and max
+        # MN: here you are computing min and max on single distances and not on total distance run by participant
+        data.append(float(line.split(',')[1]))
+        max_distance = max(data)
+        min_distance = min(data)
+
+        # MN: populate output dictionary
+        if temp[0] in output_file.keys():
+            # MN: update counter for multi run participant
+            num_multi_participant += 1
+            # MN: update runs for participant
+            output_file[temp[0]][0] += 1
+            # MN: update dustance for participant
+            output_file[temp[0]][1] += distance
+        else:
+            # MN: we need to insert a new participant
+            output_file[temp[0]] = [1, distance]
 
 fh.close()
 
 output_FILE = open('f2016_cs8_til43_a3.data.output.csv', 'w')
 for item, value in output_file.items():
-    output_FILE.write(str(item),',',str(value[0]),',',str(value[1],'\n'))
+    # MN: be careful of syntax errors
+    # MN: write accept a single string
+    #output_FILE.write(str(item),',',str(value[0]),',',str(value[1]),'\n')
+    output_FILE.write(str(item) + ',' + str(value[0]) + ',' + str(value[1]) + '\n')
 output_FILE.close()
 
 
@@ -102,7 +145,7 @@ printKV('   by participant', "I don't know",30)
 printKV('Min distance run', min_distance,30)
 printKV('   by participant',"I don't know",30)
 print (" ")
-printKV("Total number of participants", )
+printKV("Total number of participants", "")
 printKV('number of participant with multiple records', num_multi_participant,30)
 
 
