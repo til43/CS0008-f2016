@@ -71,16 +71,16 @@
 # start the program with the class
 class Participant:
     # initialize the properties
-    def __init__(self,name,distance=0):
+    def __init__(self,name,distance):
 #       #set name
         self.name = 'name'
 #       set distance and runs
         if distance > 0:
             self.distance = distance
-            runs = 1
+            self.runs = 1
         else:
             self.distance = 0
-            runs = 0
+            self.runs = 0
     # def __init__ ends
 #
     # addDistance(d) method
@@ -184,16 +184,18 @@ participant = {}
 for item in data:
     # exclude 'name' and 'distance' in the dictionary
     if item[0] != 'name' and item[1] != 'distance':
-        participant.update({str(item[0]): float(item[1])})
         distance = float(item[1])
-        name = item[0]
-        if name in participant.keys():
-           name.addDistance(item[1])$
+        name = str(item[0])
+        # check if the name appears the first time
+        if name not in participant.keys():
+            participant[name] = Participant(name, distance)
+            participant[name].addDistance(distance)
+print(participant)
 
 # total number of participants
 totalParticipants = len(participant)
 
-
+print(totalParticipants)
 
 
 
