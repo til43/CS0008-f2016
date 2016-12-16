@@ -189,6 +189,10 @@ for item in data:
             participant[name] = Participant(name,distance)
             participant[name].addDistance(distance)
 
+(# I thought the problem may be that I failed to add distances to the participants that have multiple runs? I tried the participant.setdefault method, and participant.update method, but it showed ‘Participant(which is the name of my class) has no attribute ’setdefault’ ’ and ‘update’ method.
+so I think the way of adding instances to the class is not right, but I don’t know where went wrong.)
+
+
 # get the list of participant with multiple runs (I don't know where went wrong)
 multiplerun = []
 for item in participant.values():
@@ -197,7 +201,8 @@ for item in participant.values():
 sumpeoplewithmultiruns = len(multiplerun)
 
 # end for
-
+(# I thought the problem was in the definition of the class, maybe I forgot to initiate 
+the runs, but I checked it, I don’t know why all runs are equal to 2 now)
 
 # total number of participants
 totalParticipants = len(participant)
@@ -265,6 +270,24 @@ for name, item in participant.items():
 outputfile.close()
 
 
+/Library/Frameworks/Python.framework/Versions/3.5/bin/python3.5 /Users/liutiantian/Documents/CS0008/CS0008-f2016/f2016_cs8_til43_fp/f2016_cs8_til43_fp.py
+Number of Input files read     : 3                                       
+Total number of lines read     : 453                                     
+
+total distance run             : 23222.95595                             
+
+max distance run               : 99.91761                                
+   by participant              : Roland                                  
+
+min distance run               : 0.05789                                 
+   by participant              : Alex                                    
+
+Total number of participants   : 388                                     
+Number of participants with multiple records : 388                                     
+
+Process finished with exit code 0
+# I don’t know if i mess up the lists and dictionary somewhere, but I tried to change them
+several times, it doesn’t work. I feel blind lol
 
 
 
