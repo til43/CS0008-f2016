@@ -6,6 +6,10 @@
 # class      : CS0008-f2016
 # instructor : Max Novelli (man8@pitt.edu)
 #
+# Notes:
+# MN: your error was logical and a if/else statment fixed. Keep reading and looking for my comments
+#
+#
 # description:
 # A customer needs to process a number of text files (called data files) that contain names and distance run by study participants.
 # The format of those files is as follows:
@@ -154,6 +158,8 @@ totalnumFile = 0
 for filename in masterFile:
     totalnumFile += 1
     fileList.append(filename.rstrip('\n'))
+# MN: you are not closing the master file
+masterFile.close()
 
 # loop through all three files and append all data to data list
 for file in fileList:
@@ -162,6 +168,8 @@ for file in fileList:
     for line in files:
         data.append(line.rstrip('\n').split(','))
     # end for
+    # MN: you need to close file here, right after you use it
+    files.close()
 # end for
 
 # the number of total lines read
@@ -187,6 +195,12 @@ for item in data:
         # check if the name appears the first time
         if name not in participant.keys():
             participant[name] = Participant(name,distance)
+            # MN: you execute this statement only when name is not in the dictionary
+            #     this needs to execute every time you encoutner the name
+            #participant[name].addDistance(distance)
+        # MN: if it is not the first time, you should just add the distance
+        #     this should be a dual branch conditional statement
+        else:
             participant[name].addDistance(distance)
 
 # get the list of participant with multiple runs (I don't know where went wrong)
@@ -233,8 +247,11 @@ for name, object in participant.items():
     if run not in runs.keys():
         runs[run] = []
         runs[run].append(name)
+# MN: you need to close the file right after you use it 
+#     here it is kind of far from where you use it, right?
+#     not needed
 # close the file
-file.close()
+#file.close()
 
 
 
